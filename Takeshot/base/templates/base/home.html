@@ -41,8 +41,10 @@
     <div>
       {% for room in rooms %}
       <div>
+        {% if request.user == room.host %}
         <a href="{% url 'update-room' room.id %}">Edit</a>
         <a href="{% url 'delete-room' room.id %}">Delete</a>
+        {% endif %}
         <span>@{{room.host.username}}</span>
         <!-- this will show the username in the models(database) -->
         <!-- Dianamically call a page : in href form  url name of the path id number in the dictionary in views function-->
