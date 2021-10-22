@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.db.models import Q
 from .models import Message, Room, Topic
 from .forms import RoomForm
@@ -72,14 +73,17 @@ def home(request):
 
     topics = Topic.objects.all() # to take all the topic
     room_count = rooms.count() # for counting rooms
+    room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
 
-    context = {'rooms': rooms,'topics':topics,'room_count':room_count} #sending data to website
+
+    context = {'rooms': rooms,'topics':topics,'room_count':room_count,
+                 'room_messages':room_messages} #sending data to website
     return render(request, 'base/home.html', context)
 
 
 def room(request, pk):
     room = Room.objects.get(id=pk)  # pk is the number in url in the path
-    room_messages = room.message_set.all().order_by('-created')
+    room_messages = room.message_set.all()
     participants = room.participants.all()
 
 
@@ -94,6 +98,14 @@ def room(request, pk):
 
     context = {'room': room,'room_messages':room_messages, 'participants':participants}
     return render(request, 'base/room.html', context)
+
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    room_messages = user.message_set.all()
+    topics = Topic.objects.all()
+    context = {'user':user, 'rooms':rooms ,'room_messages':room_messages,'topics':topics}
+    return render(request,'base/profile.html',context)
 
 @login_required(login_url='login')
 def createRoom(request):

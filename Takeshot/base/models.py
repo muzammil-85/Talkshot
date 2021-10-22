@@ -33,6 +33,7 @@ class Message(models.Model): # this class is store message of users
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
-
+    class Meta:
+        ordering = ['-updated', '-created'] # order of the posted field
     def __str__(self):
         return self.body[0:50]
