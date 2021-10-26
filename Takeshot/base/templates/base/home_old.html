@@ -1,4 +1,6 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %}
+
+{% block content %}
 
 <style>
     .home-container {
@@ -7,27 +9,27 @@
     }
 </style>
 
-<h1>Home Template</h1>
 
 <div class="home-container">
-  <div>
-    {% include 'base/topic_component.html' %}
-  </div>
+
+    <div>
+        {% include 'base/topics_component.html' %}
+    </div>
+
+    <div>
+        <h5>{{room_count}} rooms available</h5>
+        <a href="{% url 'create-room' %}">Create Room</a>
+
+        {% include 'base/feed_component.html' %}
+
+    </div>
 
 
-  <div>
-  
-    <h5>{{room_count}} rooms available</h5>
+    <div>
+        {% include 'base/activity_component.html' %}
+    </div>
 
-    <a href="{% url 'create-room' %}">Create Room</a>
 
-    {% include 'base/feed_component.html' %}
-
-  </div>
-
-  <div>
-    {% include 'base/activity_component.html' %}
-  </div>
 
 </div>
 
