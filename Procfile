@@ -1,0 +1,1 @@
+web: gunicorn Takeshot.wsgi --log-file -
