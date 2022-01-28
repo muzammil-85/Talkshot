@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     "corsheaders",
+    'storages'
 ]
 
 AUTH_USER_MODEL = 'base.User'
@@ -139,13 +140,13 @@ MEDIA_URL = '/images/'
 
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 
 
@@ -160,3 +161,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+
+
+
+
+
+#S3 BUCKETS CONFIG
+
+AWS_ACCESS_KEY_ID = 'AKIA6DXLVGOLMLFTIJLS'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'talkshot-p1'
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
