@@ -18,6 +18,7 @@ from .forms import RoomForm, UserForm, MyUserCreationForm
 
 def loginPage(request):
     page = 'login'
+    msg = False
     if request.user.is_authenticated:
         return redirect('home')
 
@@ -28,17 +29,16 @@ def loginPage(request):
         try:
             user = User.objects.get(email=email)
         except:
-            messages.error(request, 'User does not exist')
-
+            pass
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
             login(request, user)
             return redirect('home')
         else:
-            messages.error(request, 'Username OR password does not exit')
+            msg = True
 
-    context = {'page': page}
+    context = {'page': page,"msg":msg}
     return render(request, 'base/login_register.html', context)
 
 

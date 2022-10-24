@@ -26,7 +26,11 @@
             <input id="password" name="password" type="password"
               placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" />
           </div>
-
+          {% if msg %}
+          <div class="alert alert-danger" role="alert">
+            Email or Password not found
+          </div>
+          {% endif %}
           <button class="btn btn--main" type="submit">
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
               <title>lock</title>
@@ -41,6 +45,10 @@
             Login
           </button>
         </form>
+        <div class="auth__action">
+          <p>Forget Password?</p>
+          <a href="{% url 'reset_password' %}" class="btn btn--link">Reset Password</a>
+        </div>
 
         <div class="auth__action">
           <p>Haven't signed up yet?</p>
