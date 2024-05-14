@@ -27,7 +27,7 @@ SECRET_KEY = "qdkfogjrnrkfopxz-kfmd"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['*','localhost','127.0.0.1']
 
 
 EMAIL_USE_TLS = True
